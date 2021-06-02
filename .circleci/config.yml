@@ -2,17 +2,16 @@ version: 2.1
 
 defaults: &environment
   docker:
-    - image: circleci/node:13.8.0
-
+    - image: amazon/aws-cli
 
 jobs:
-  build:
+  build_environment:
     <<: *environment
     steps:
       - checkout
-
+      - run: aws cloudformation create-stack --stack-name cd --template-body file://template.yml  --capabilities "CAPABILITY_IAM" "CAPABILITY_NAMED_IAM" --region=eu-central-1
 
 workflows:
   cd:
     jobs:
-      - build
+      - build_environment
