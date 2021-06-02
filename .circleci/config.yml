@@ -9,7 +9,7 @@ jobs:
     <<: *environment
     steps:
       - checkout
-      - run: aws cloudformation create-stack --stack-name cd --template-body file://template.yml  --capabilities "CAPABILITY_IAM" "CAPABILITY_NAMED_IAM" --region=eu-central-1
+      - run: aws cloudformation deploy --template-file template.yml --stack-name my-stack
 
 workflows:
   cd:
