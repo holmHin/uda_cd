@@ -1,17 +1,18 @@
 version: 2.1
 
-defaults: &environment
-  docker:
-    - image: amazon/aws-cli
-
 jobs:
-  build_environment:
-    <<: *environment
+  create_infrastructure:
+    docker:
+      - image: amazon/aws-cli
     steps:
       - checkout
-      - run: aws cloudformation deploy --template-file template.yml --stack-name my-stack
-
+      - run:
+          name: Ensure backend infrastructure exist
+          command: |
+            aws cloudformation deploy \
+              --template-file template.yml \
+              --stack-name my-stack
 workflows:
-  cd:
+  my_workflow:
     jobs:
-      - build_environment
+      - create_infrastructure
