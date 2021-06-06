@@ -1,9 +1,9 @@
 version: 2.1
 
-defaults: &environment_ansible
+defaults1: &environment_ansible
   docker:
     - image: python:3.7-alpine3.11
-defaults: &environment_aws
+defaults2: &environment_aws
   docker:
     - image: amazon/aws-cli
 
