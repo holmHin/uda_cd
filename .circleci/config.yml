@@ -19,11 +19,8 @@ jobs:
       - run:
           name: Install Dependencies
           command: |
-            apk add -- update ansible
-      - run:
-          name: run ansible
-          command: |
-            aws cloudformation deploy --template-file template.yml --stack-name my-stack
+            apk add --update ansible
+
 
 workflows:
   cd:
