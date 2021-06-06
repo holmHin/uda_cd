@@ -45,3 +45,4 @@ workflows:
     jobs:
       #- build_environment
       - deploy_environment
+      - smoketest
