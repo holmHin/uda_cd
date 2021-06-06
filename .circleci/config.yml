@@ -10,6 +10,7 @@ commands:
       - run:
           name: Destroy Environment
           command: aws cloudformation delete-stack --stack-name my-stack
+          when: on_fail
 
 jobs:
   build_environment:
@@ -17,8 +18,6 @@ jobs:
     steps:
       - checkout
       - run: aws cloudformation deploy --template-file template.yml --stack-name my-stack
-      - destroy_environment:
-          when: on_fail
   deploy_environment:
     <<: *environment
     steps:
@@ -47,8 +46,7 @@ jobs:
             else
              return 1
             fi
-      - destroy_environment:
-          when: on_fail
+      - destroy_environment
 
 
 
