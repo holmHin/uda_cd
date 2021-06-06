@@ -2,7 +2,7 @@ version: 2.1
 
 defaults: &environment
   docker:
-    - image: amazon/aws-cli
+    - image: python:3.7-alpine3.11
 
 jobs:
   build_environment:
@@ -10,8 +10,23 @@ jobs:
     steps:
       - checkout
       - run: aws cloudformation deploy --template-file template.yml --stack-name my-stack
+  deploy_environment:
+    <<: *environment
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints: ["72:74:85:21:95:96:db:d6:2c:ab:a1:b2:72:16:88:0a"]
+      - run:
+          name: Install Dependencies
+          command: |
+            apk add -- update ansible
+      - run:
+          name: run ansible
+          command: |
+            aws cloudformation deploy --template-file template.yml --stack-name my-stack
 
 workflows:
   cd:
     jobs:
-      - build_environment
+      #- build_environment
+      - deploy_environment
