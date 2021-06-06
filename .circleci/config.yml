@@ -1,8 +1,11 @@
 version: 2.1
 
-defaults: &environment
+defaults: &environment_ansible
   docker:
     - image: python:3.7-alpine3.11
+defaults: &environment_aws
+  docker:
+    - image: amazon/aws-cli
 
 commands:
   destroy_environment:
@@ -14,12 +17,12 @@ commands:
 
 jobs:
   build_environment:
-    <<: *environment
+    <<: *environment_aws
     steps:
       - checkout
       - run: aws cloudformation deploy --template-file template.yml --stack-name my-stack
   deploy_environment:
-    <<: *environment
+    <<: *environment_ansible
     steps:
       - checkout
       - add_ssh_keys:
@@ -32,8 +35,7 @@ jobs:
           name:  run playbook
           command: ansible-playbook -i ansible/inventory ansible/main.yml
   smoketest:
-    docker:
-      - image: alpine
+    <<: *environment_aws
     steps:
       - run: apk add --update curl
       - run:
