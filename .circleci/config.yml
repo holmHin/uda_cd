@@ -4,6 +4,8 @@ defaults: &environment
   docker:
     - image: python:3.7-alpine3.11
 
+
+
 jobs:
   build_environment:
     <<: *environment
@@ -23,6 +25,19 @@ jobs:
       - run:
           name:  run playbook
           command: ansible-playbook -i ansible/inventory ansible/main.yml
+  smoketest:
+    docker:
+      - image: alpine
+    steps:
+      - run:
+          name: perform CURL Smoke Test
+          command: if curl -s --head "https://google.com"
+            then
+            1
+            else
+            echo 0
+            fi
+
 
 
 workflows:
