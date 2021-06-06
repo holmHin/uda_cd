@@ -1,5 +1,5 @@
-. name: deployment
-  host: aws
+- name: deployment
+  hosts: aws
   user: ubuntu
 
   # following is to have the interpreter set tot python3
