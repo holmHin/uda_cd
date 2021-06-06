@@ -44,5 +44,5 @@ workflows:
   cd:
     jobs:
       #- build_environment
-      - deploy_environment
+      # deploy_environment
       - smoketest
