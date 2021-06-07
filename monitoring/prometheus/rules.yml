@@ -1,0 +1,11 @@
+groups:
+  - name: Memory
+    rules:
+      - alert: Moinsen
+        expr: up == 0
+        for: 1m
+        labels:
+          severity: 'critical'
+        annotations:
+          summary: "Instance is almost out of memory"
+          description: " This is a memory warning!."

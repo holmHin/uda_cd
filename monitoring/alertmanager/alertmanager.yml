@@ -1,0 +1,14 @@
+GNU nano 4.8                                                                                                   alertmanager.yml
+route:
+  group_by: [Alertname]
+  receiver: email-me
+
+receivers:
+  - name: email-me
+    email_configs:
+      - to: holm.hinrichs@t-online.de
+        from: prometheus@partyschwerpunkt.de
+        smarthost: smtp.strato.de:587
+        auth_username: prometheus@partyschwerpunkt.de
+        auth_identity: prometheus@partyschwerpunkt.de
+        auth_password: ZiiM2ooNgimi
