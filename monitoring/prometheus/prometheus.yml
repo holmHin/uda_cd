@@ -32,6 +32,6 @@ scrape_configs:
   - job_name: 'node'
     ec2_sd_configs:
       - region: eu-central-1
-        access_key: AKIASX5IM6WMDJN7EAIN
-        secret_key: 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
+        access_key: 
+        secret_key: 
         port: 9100
